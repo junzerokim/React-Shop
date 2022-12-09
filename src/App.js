@@ -36,12 +36,16 @@ function App() {
             >
               Detail
             </Nav.Link>
+            <Nav.Link
+              onClick={() => {
+                navigate('about');
+              }}
+            >
+              About
+            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
-
-      <Link to="/">Home</Link>
-      <Link to="/detail">Detail</Link>
 
       <Routes>
         <Route
@@ -60,7 +64,21 @@ function App() {
           }
         />
         <Route path="/detail" element={<Detail Row={Row} />} />;
+        <Route path="/about" element={<About />}>
+          <Route path="member" element={<div>멤버</div>} />
+          <Route path="location" element={<div>헬로</div>} />
+        </Route>
+        <Route path="*" element={<div>없는 페이지임</div>} />;
       </Routes>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>회사정보</h4>
+      <Outlet />
     </div>
   );
 }
