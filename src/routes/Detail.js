@@ -1,20 +1,27 @@
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import styled from 'styled-components';
-
-let Box = styled.div`
-  background: ${(props) => props.bg};
-  padding: 20px;
-`;
 
 function Detail(props) {
+  let [count, setCount] = useState(0);
+  let [alert, setAlert] = useState(true);
   let { id } = useParams();
   let findProduct = props.shoes.find((a) => {
     return a.id === Number(id);
   });
 
+  useEffect(() => {
+    let a = setTimeout(() => {
+      setAlert(false);
+    }, 2000);
+    return () => {
+      clearTimeout(a);
+    };
+  }, []);
+
   return (
     <div className="container">
-      <Box bg="black"></Box>
+      {alert === true ? <div className="alert alert-warning">2초이내 구매시 할인</div> : null}
+      <button onClick={() => setCount(count + 1)}>button</button>
       <props.Row>
         <div className="col-md-6">
           <img src={`https://codingapple1.github.io/shop/shoes1.jpg`} alt="" width="100%" />
