@@ -4,9 +4,11 @@ import data from './data.js';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
+import axios from 'axios';
 
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
+  let [clickCount, setClickCount] = useState(0);
   let navigate = useNavigate();
 
   return (
@@ -60,6 +62,17 @@ function App() {
                   })}
                 </Row>
               </div>
+              <button
+                onClick={() => {
+                  setClickCount(clickCount + 1);
+                  axios.get('https://codingapple1.github.io/shop/data2.json').then((result) => {
+                    let copy = [...shoes, ...result.data];
+                    setShoes(copy);
+                  });
+                }}
+              >
+                More
+              </button>
             </>
           }
         />
