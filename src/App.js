@@ -4,6 +4,7 @@ import data from './data.js';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
+import Cart from './routes/Cart';
 import axios from 'axios';
 
 function App() {
@@ -40,10 +41,10 @@ function App() {
             </Nav.Link>
             <Nav.Link
               onClick={() => {
-                navigate('event');
+                navigate('cart');
               }}
             >
-              Event
+              Cart
             </Nav.Link>
           </Nav>
         </Container>
@@ -58,7 +59,7 @@ function App() {
               <div className="container">
                 <Row>
                   {shoes.map((a, i) => {
-                    return <Card shoes={shoes[i]} i={i} />;
+                    return <Card shoes={shoes[i]} i={i} key={i} />;
                   })}
                 </Row>
               </div>
@@ -77,21 +78,8 @@ function App() {
           }
         />
         <Route path="/detail/:id" element={<Detail Row={Row} shoes={shoes} />} />;
-        <Route path="/event" element={<Event />}>
-          <Route path="one" element={<div>첫 주문시 양배추즙 서비스</div>} />
-          <Route path="two" element={<div>생일기념 쿠폰받기</div>} />
-        </Route>
-        <Route path="*" element={<div>없는 페이지</div>} />;
+        <Route path="/cart" element={<Cart />} />
       </Routes>
-    </div>
-  );
-}
-
-function Event() {
-  return (
-    <div>
-      <h4>오늘의 이벤트</h4>
-      <Outlet />
     </div>
   );
 }
