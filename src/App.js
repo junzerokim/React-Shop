@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import data from './data.js';
 import { Navbar, Container, Nav, Row, Col } from 'react-bootstrap';
@@ -8,6 +8,11 @@ import Cart from './routes/Cart';
 import axios from 'axios';
 
 function App() {
+  useEffect(() => {
+    if (localStorage === true) {
+      localStorage.setItem('watched', JSON.stringify([]));
+    }
+  }, []);
   let [shoes, setShoes] = useState(data);
   let [clickCount, setClickCount] = useState(0);
   let navigate = useNavigate();
@@ -85,8 +90,14 @@ function App() {
 }
 
 function Card(props) {
+  let navigate = useNavigate();
   return (
-    <Col sm>
+    <Col
+      sm
+      onClick={() => {
+        navigate(`detail/${props.i}`);
+      }}
+    >
       <img src={`https://codingapple1.github.io/shop/shoes${props.i + 1}.jpg`} alt="" width="80%" />
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>

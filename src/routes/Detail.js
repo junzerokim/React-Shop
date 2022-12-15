@@ -15,7 +15,15 @@ function Detail(props) {
     return a.id === Number(id);
   });
   let dispatch = useDispatch();
-  let state = useSelector((state) => state);
+
+  useEffect(() => {
+    let out = localStorage.getItem('watched');
+    out = JSON.parse(out);
+    out.push(findProduct.id);
+    out = new Set(out);
+    out = Array.from(out);
+    localStorage.setItem('watched', JSON.stringify(out));
+  }, []);
 
   useEffect(() => {
     let a = setTimeout(() => {
